@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct BiTNode{
+    char data;
+    struct BiTNode* left;
+    struct BiTNode* right;
+}BiTNode , *BiTree;
+
+void CreateTree(BiTree* T)
+{
+    char ch;
+    scanf("%c",&ch);
+    if(ch == '#')
+    *T = NULL;
+    else
+    {
+        *T = (BiTree)malloc(sizeof(BiTNode));
+        (*T)->data = ch;
+        CreateTree(&(*T)->left);
+        CreateTree(&(*T)->right);
+    }
+
+}
+
+void PreOrder(BiTree T)
+{
+    if(T == NULL)
+    return ;
+    printf("%c",T->data);
+    PreOrder(T->left);
+    PreOrder(T->right);
+
+}
+
+int main()
+{
+    BiTree t;
+    printf("请输入：");
+    //建树
+    CreateTree(&t);
+    printf("先序遍历结果：");
+    PreOrder(t);
+    printf("\n");
+    printf("中序遍历结果：");
+    InOrder(t);
+    printf("\n");
+    printf("后序遍历结果：");
+    PrestOrder(t);
+    printf("\n");
+    return 0;
+}
+
+void InOrder(BiTree T)
+{
+    if(T == NULL)
+    return ;
+    InOrder(T->left);
+    printf("%c",T->data);
+    InOrder(T->right);
+}
+
+void PrestOrder(BiTree T)
+{
+    if(T == NULL)
+    return ;
+    PrestOrder(T->left);
+    PrestOrder(T->right);
+    printf("%c",T->data);
+}
