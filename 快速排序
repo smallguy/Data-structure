@@ -1,1 +1,58 @@
+#include <stdio.h>
 
+void QkSort(int *arr, int left, int right){
+    if (left > right) 
+    {
+        return;
+    }
+   
+    int tmp = arr[left];
+    int i = left; 
+    int j = right;   
+    
+    while (i != j)
+    {  
+        while (arr[j] >= tmp && j > i)
+        {
+            j--;
+        }
+        
+        while (arr[i] <= tmp && j > i)
+        {
+            i++;
+        }
+        
+        if (j > i)
+        {
+            int t = arr[i];
+            arr[i] = arr[j];
+            arr[j] = t;
+        }
+    }
+
+    arr[left] = arr[i];
+    arr[i] = tmp;
+    
+    QkSort(arr, left, i - 1);
+    
+    QkSort(arr, i + 1, right);
+}
+
+int main()
+{
+    int arr[] = { 0, 4, 3, 5, 65, 2, 64, 68, 34, 94, 53, 74, 13 };
+    int len = sizeof(arr)/sizeof(int);
+    printf("待排序数值：");
+    int i ;
+    for (i = 0; i <=len-1; i++)
+    {
+        printf("%d ",arr[i]);
+    }
+    printf("\n");
+    printf("排序后的数值：");
+    QkSort(arr,0,len-1);
+    for (i = 0; i <=len-1; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+}
